@@ -57,7 +57,7 @@ dependencies {
     // Enable annotation processing
     compileJava {
         options.annotationProcessorPath = configurations.annotationProcessor
-        options.compilerArgs += ['-parameters']
+        options.compilerArgs += ['-parameters', '-Aproject=${project.group}/${project.name}']
     }
 
     // Test dependencies

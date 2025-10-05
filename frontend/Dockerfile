@@ -37,7 +37,8 @@ RUN chown -R nextjs:nodejs /usr/share/nginx/html && \
 RUN mkdir -p /var/run/nginx && \
     chown -R nextjs:nodejs /var/run/nginx
 
-USER nextjs
+# Run as root for nginx to work properly
+# USER nextjs
 
 EXPOSE 5173
 

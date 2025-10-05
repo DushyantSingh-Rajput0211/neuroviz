@@ -15,11 +15,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Create storage directories
-RUN mkdir -p /app/storage/raw /app/storage/processed /app/logs
+# Create storage directories and models directory
+RUN mkdir -p /app/storage/raw /app/storage/processed /app/logs /app/models
 
-# Create non-root user
-RUN useradd -m -u 1001 neuroviz
+# Create non-root user and set ownership
+RUN useradd -m -u 1001 neuroviz && \
+    chown -R neuroviz:neuroviz /app
 USER neuroviz
 
 EXPOSE 8001

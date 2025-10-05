@@ -10,8 +10,11 @@ spring:
   profiles:
     active: dev
   
+  main:
+    allow-circular-references: true
+  
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/neuroviz}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/neuroviz}
     username: ${SPRING_DATASOURCE_USERNAME:neuro}
     password: ${SPRING_DATASOURCE_PASSWORD:neuro}
     driver-class-name: org.postgresql.Driver

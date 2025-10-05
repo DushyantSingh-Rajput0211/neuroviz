@@ -154,4 +154,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 📞 Contact
 
-For questions or support, please open an issue or contact [your-email@example.com](mailto:your-email@example.com).
+For questions or support, please open an issue or contact [dushysingh@gmail.com](mailto:your-email@example.com).

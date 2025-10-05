@@ -7,7 +7,6 @@ import com.neuroviz.dto.response.LoginResponse;
 import com.neuroviz.entity.User;
 import com.neuroviz.repository.UserRepository;
 import com.neuroviz.security.JwtUtils;
-import com.neuroviz.security.UserService;
 import com.neuroviz.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

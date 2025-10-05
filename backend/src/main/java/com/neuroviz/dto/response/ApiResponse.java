@@ -12,6 +12,13 @@ public class ApiResponse<T> {
     private String message;
     private T data;
     
+    // Manual constructor since Lombok isn't working
+    public ApiResponse(boolean success, String message, T data) {
+        this.success = success;
+        this.message = message;
+        this.data = data;
+    }
+    
     public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<T>(true, "Success", data);
     }

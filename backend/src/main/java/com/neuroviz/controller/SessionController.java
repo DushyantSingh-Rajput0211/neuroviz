@@ -3,7 +3,7 @@ package com.neuroviz.controller;
 import com.neuroviz.dto.SessionDto;
 import com.neuroviz.dto.request.CreateSessionRequest;
 import com.neuroviz.dto.response.ApiResponse;
-import com.neuroviz.security.UserService;
+import com.neuroviz.service.UserService;
 import com.neuroviz.service.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

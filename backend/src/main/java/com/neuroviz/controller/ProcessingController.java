@@ -5,7 +5,7 @@ import com.neuroviz.dto.response.ApiResponse;
 import com.neuroviz.entity.ProcessingJob;
 import com.neuroviz.repository.ProcessingJobRepository;
 import com.neuroviz.repository.SessionRepository;
-import com.neuroviz.security.UserService;
+import com.neuroviz.service.UserService;
 import com.neuroviz.service.ProcessingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

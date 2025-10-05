@@ -11,8 +11,8 @@ RUN npm install --production
 # Copy source code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Build the application (skip tests)
+RUN npm run build -- --mode production
 
 # Production stage
 FROM nginx:alpine

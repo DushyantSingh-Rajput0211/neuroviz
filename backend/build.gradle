@@ -53,6 +53,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+    
+    // Enable annotation processing
+    compileJava {
+        options.annotationProcessorPath = configurations.annotationProcessor
+        options.compilerArgs += ['-parameters']
+    }
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

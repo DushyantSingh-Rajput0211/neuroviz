@@ -8,12 +8,12 @@ COPY gradlew .
 
 RUN gradle build -x test --no-daemon
 
-FROM eclipse-temurin:17-jre-alpine
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
 # Install curl for health checks
-RUN apk add --no-cache curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Create storage directory
 RUN mkdir -p /app/storage/raw /app/storage/processed /app/logs

@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-neuro}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-neuro}
+      POSTGRES_DB: ${POSTGRES_DB:-neuroviz}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/db/migration:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-neuro}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-neuroviz}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-neuro}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-neuro}
+      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_change_me_in_production}
+      PROCESSING_URL: ${PROCESSING_URL:-http://processing:8001}
+      STORAGE_PATH: ${STORAGE_PATH:-/app/storage}
+    volumes:
+      - ./storage:/app/storage
+      - backend_logs:/app/logs
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  processing:
+    build:
+      context: ./processing
+      dockerfile: Dockerfile
+    environment:
+      STORAGE_PATH: ${STORAGE_PATH:-/app/storage}
+      RAW_DATA_PATH: ${RAW_DATA_PATH:-/app/storage/raw}
+      PROCESSED_DATA_PATH: ${PROCESSED_DATA_PATH:-/app/storage/processed}
+    volumes:
+      - ./storage:/app/storage
+      - processing_logs:/app/logs
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      VITE_API_URL: ${BACKEND_EXTERNAL_URL:-http://localhost/api}
+      VITE_WS_URL: ws://localhost/ws/stream
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+      - processing
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./storage:/usr/share/nginx/html/storage
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+      - backend
+      - processing
+
+volumes:
+  postgres_data:
+  backend_logs:
+  processing_logs:

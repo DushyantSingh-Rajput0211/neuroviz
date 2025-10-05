@@ -5,10 +5,10 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Install dependencies (don't copy node_modules)
+RUN npm install
 
-# Copy source code
+# Copy source code (excluding node_modules)
 COPY . .
 
 # Build the application (skip tests)

@@ -1,19 +1,48 @@
 package com.neuroviz.dto.response;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import com.neuroviz.dto.UserDto;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoginResponse {
     private String token;
     private String type = "Bearer";
     private UserDto user;
     
+    // Constructors
+    public LoginResponse() {}
+    
+    public LoginResponse(String token, String type, UserDto user) {
+        this.token = token;
+        this.type = type;
+        this.user = user;
+    }
+    
     public LoginResponse(String token, UserDto user) {
         this.token = token;
+        this.user = user;
+    }
+
+    // Getters and Setters
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
         this.user = user;
     }
 }

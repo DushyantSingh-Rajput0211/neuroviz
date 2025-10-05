@@ -48,17 +48,6 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
-    // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-    
-    // Enable annotation processing
-    compileJava {
-        options.annotationProcessorPath = configurations.annotationProcessor
-        options.compilerArgs += ['-parameters', '-Aproject=${project.group}/${project.name}']
-    }
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

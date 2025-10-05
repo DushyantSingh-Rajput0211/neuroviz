@@ -73,13 +73,6 @@ public class UserServiceImpl implements com.neuroviz.service.UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
     
-    @Override
-    public UserDto getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        return getUserByEmail(email);
-    }
-    
     private UserDto mapToDto(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());

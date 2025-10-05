@@ -110,7 +110,7 @@
 }
 
 .chart-line {
-  @apply stroke-width-2;
+  stroke-width: 2;
 }
 
 .chart-area {
@@ -119,16 +119,16 @@
 
 /* EEG signal specific styles */
 .eeg-signal-line {
-  @apply stroke-width-1.5;
+  stroke-width: 1.5;
   stroke-dasharray: none;
 }
 
 .eeg-signal-line.active {
-  @apply stroke-width-2;
+  stroke-width: 2;
 }
 
 .eeg-signal-line.inactive {
-  @apply opacity-30;
+  opacity: 0.3;
 }
 
 /* Loading skeletons */
